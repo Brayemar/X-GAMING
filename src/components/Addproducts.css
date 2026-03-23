@@ -1,0 +1,96 @@
+/* Page background */
+.addproduct-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #0d0d0d;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Form styling */
+.addproduct-form {
+  background-color: #111;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px #0ff, 0 0 40px #0ff, 0 0 60px #0ff;
+  width: 100%;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-title {
+  text-align: center;
+  font-size: 2rem;
+  color: #0ff;
+  text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
+  margin-bottom: 25px;
+}
+
+.success-text {
+  color: #0f0;
+  text-align: center;
+  margin-bottom: 15px;
+  text-shadow: 0 0 5px #0f0;
+}
+
+.error-text {
+  color: #ff004f;
+  text-align: center;
+  margin-bottom: 15px;
+  text-shadow: 0 0 5px #ff004f;
+}
+
+/* Input styling */
+.addproduct-form input[type="text"],
+.addproduct-form input[type="number"],
+.addproduct-form input[type="file"] {
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #0ff;
+  background: #111;
+  color: #0ff;
+  font-size: 1rem;
+  outline: none;
+  box-shadow: 0 0 5px #0ff inset;
+  transition: all 0.3s ease;
+}
+
+.addproduct-form input::placeholder {
+  color: #0ff88c;
+}
+
+.addproduct-form input:focus {
+  border-color: #0ff;
+  box-shadow: 0 0 10px #0ff, 0 0 20px #0ff inset;
+}
+
+/* File label */
+.file-label {
+  color: #0ff;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+/* Submit button */
+.submit-btn {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  color: #000;
+  font-size: 1rem;
+  cursor: pointer;
+  background: linear-gradient(45deg, #0ff, #0ff88c);
+  box-shadow: 0 0 10px #0ff, 0 0 20px #0ff inset;
+  transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+  background: linear-gradient(45deg, #0ff88c, #0ff);
+  box-shadow: 0 0 20px #0ff, 0 0 40px #0ff inset;
+  transform: scale(1.05);
+}

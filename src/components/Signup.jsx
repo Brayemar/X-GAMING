@@ -1,122 +1,93 @@
 import axios from 'axios';
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import './signup.css'; // Separate CSS for Signup
+import bgImage from "../assets/images/GAMEPAD.webp"; // exact filename
+
+
 
 const Signup = () => {
-  // initialize the hooks
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
 
-// Define the three states an application will move to 
-const [loading, setLoading] = useState("");
-const [success, setSuccess] = useState("");
-const [error, setError] = useState("");
+  const [loading, setLoading] = useState("");
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
 
-// Below is a function that will handle the submit action 
-const handleSubmit = async(e) =>{
-  // Below we prevent our site from reloading 
-  e.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading("Please wait as registration is in progress...");
+    try {
+      const formdata = new FormData();
+      formdata.append("username", username);
+      formdata.append("email", email);
+      formdata.append("password", password);
+      formdata.append("phone", phone);
 
-  // Update our loading hook with a message that will be displayed to the users who are trying to register 
-  setLoading("Please wait as registration is in progress...")
-  try{
-    // create a form data object that will enable you to capture the four details entered on the form 
-    const formdata = new FormData();
+      const response = await axios.post("https://brayemar.alwaysdata.net/api/signup", formdata);
 
-    // insert the for details (username, email, password, phone)in terms of key - value pairs 
-    formdata.append("username", username);
-    formdata.append("email", email);
-    formdata.append("password", password);
-    formdata.append("phone", phone);
-
-    // by use of axios, we can access the method POST
-    const response =await axios.post("https://brayemar.alwaysdata.net/api/signup", formdata)
-
-    // set back loading hook back to default
-    setLoading("");
-
-    // just incase everything goes on well, update the success hook with a message
-    setSuccess(response.data.message)
-
-    // clear your hooks
-    setUsername("")
-    setEmail("")
-    setPassword("")
-    setPhone("")
-
-     setTimeout(() => {
-    setSuccess("");
-  }, 5000);
-  }
-  catch(error){
-    // set the loading back to default
-    setLoading("");
-
-    // update the error hook with the message given back from the response
-    setError(error.message)
-  }
-}
+      setLoading("");
+      setSuccess(response.data.message);
+      setUsername(""); setEmail(""); setPassword(""); setPhone("");
+      setTimeout(() => setSuccess(""), 5000);
+    } catch (error) {
+      setLoading("");
+      setError(error.message);
+    }
+  };
 
   return (
-    <div className='row justify-content-center mt-4'>
-      <div className="card col-md-6 shadow p-4">
-        <h1 className='text-primary'>Sign Up</h1>
+    <div className="signup-page">
+      <div className="signup-header">
+        <h1 className="neon-title">Create Your Account</h1>
+      </div>
 
-        <h1 className='text-warning'> {loading} </h1>
-        <h3 className="text-success"> {success} </h3>
-        <h4 className="text-danger"> {error} </h4>
+      <div className="signup-form-container">
+        {loading && <h3 className="loading-text">{loading}</h3>}
+        {success && <h3 className="success-text">{success}</h3>}
+        {error && <h3 className="error-text">{error}</h3>}
 
         <form onSubmit={handleSubmit}>
-          <input type="text"
-          placeholder='Enter the Username'
-          className='form-control'
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required /> <br />
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Phone Number"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            required
+          />
 
-          {/* {username} */}
-
-          <input type="email"
-          placeholder='Enter the email Address'
-          className='form-control'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required /> <br />
-
-          {/* {email} */}
-
-          <input type="password"
-          placeholder='Enter the Password'
-          className='form-control'
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required /> <br />
-
-          {/* {password} */}
-
-          <input type="integer"
-          placeholder='Enter the Mobile Phone Number'
-          className='form-control'
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          required /> <br />
-
-          {phone}
-
-          <input type="submit"
-          value="Signup"
-          className='btn btn-primary' /> <br /> <br />
-
-          Already have an account? <Link to={'/signin'}>Signin</Link>
-
+          <button type="submit" className="neon-button">Sign Up</button>
         </form>
+
+        <p className="signin-link">
+          Already have an account? <Link to="/signin">Sign In</Link>
+        </p>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Signup;
-
-// Research on Axios module in reactjs

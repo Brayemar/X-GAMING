@@ -1,119 +1,96 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import Loader from './Loader';
 import axios from 'axios';
+import './Addproducts.css';
+import Footer from './Footer';
 
 const Addproducts = () => {
-
-  // introduce the hooks 
   const [product_name, setProductName] = useState("");
   const [product_description, setProductDescription] = useState("");
   const [product_cost, setProductCost] = useState("");
   const [product_photo, setProductPhoto] = useState("");
 
-  // declare the additional hooks to manage the state of the application 
   const [loading, setLoading] = useState(false);
-  const [success,setSuccess] = useState("");
-  const [error,setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
 
-  // create a function that will handle the submit action 
-  const handleSubmit = async (e) =>{
-    // prevent the site from reloading 
-    e.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-    // setloading hook with a message (activate it) 
-    setLoading(true)
-
-    try{
-      // create a form data 
-      const formdata = new FormData()
-      // append the details to the formdata created 
+    try {
+      const formdata = new FormData();
       formdata.append("product_name", product_name);
       formdata.append("product_description", product_description);
       formdata.append("product_cost", product_cost);
       formdata.append("product_photo", product_photo);
 
-      // nteract with axios module that will help you use the method POST
-      const response = await axios.post("https://brayemar.alwaysdata.net/api/add_product", formdata)
-      
-      // set the loading back to default
+      const response = await axios.post(
+        "https://brayemar.alwaysdata.net/api/add_product",
+        formdata
+      );
+
       setLoading(false);
+      setSuccess(response.data.message);
 
-      // update the success hook with a message
-      setSuccess(response.data.message)
-
-      // clearing the hooks (setting them back to default/empty)
       setProductName("");
       setProductDescription("");
       setProductCost("");
       setProductPhoto("");
+      e.target.reset();
 
-      // clearing the image
-      e.target.reset()
+      setTimeout(() => setSuccess(""), 5000);
 
-        setTimeout(() => {
-        setSuccess("");
-      }, 5000);
-
+    } catch (err) {
+      setLoading(false);
+      setError(err.message);
     }
-    catch(error){
-      // set loading hook back to default
-      setLoading(false)
-
-      // update the setError with a message
-      setError(error.messsage)
-    }
-  }
+  };
 
   return (
-    <div className='row justify-content-center mt-4'>
-      <div className="col-md-6 p-4 card shadow">
-        <h3 className='text-primary'>Add a Game</h3>
-        {/*bind the loading hook*/}
-        {loading && <Loader />}
-        <h3 className="text-success"> {success} </h3>
-        <h4 className="text-danger"> {error} </h4>
+    <div className="addproduct-container">
+      <form className="addproduct-form" onSubmit={handleSubmit}>
+        <h2 className="form-title">Add a Game</h2>
 
-        <form onSubmit={handleSubmit}>
-          <input type="text"
-          placeholder='Enter the game name'
-          className='form-control'
+        {loading && <Loader />}
+        {success && <p className="success-text">{success}</p>}
+        {error && <p className="error-text">{error}</p>}
+
+        <input
+          type="text"
+          placeholder="Enter the game name"
           required
           value={product_name}
-          onChange={(e) => setProductName(e.target.value)} /> <br />
+          onChange={(e) => setProductName(e.target.value)}
+        />
 
-          {/* {product_name}  */}
-
-          <input type="text"
-          placeholder='Enter the game description'
-          className='form-control'
+        <input
+          type="text"
+          placeholder="Enter the game description"
           value={product_description}
-          onChange={(e) => setProductDescription(e.target.value)} /> <br />
+          onChange={(e) => setProductDescription(e.target.value)}
+        />
 
-          {/* {product_description}  */}
-
-          <input type="number"
-          placeholder='Enter the price of the game'
-          className='form-control'
+        <input
+          type="number"
+          placeholder="Enter the price of the game"
           required
           value={product_cost}
-          onChange={(e) => setProductCost(e.target.value)} /> <br />
+          onChange={(e) => setProductCost(e.target.value)}
+        />
 
-          {/* {product_cost}  */}
-
-          <label>Game Photo</label>
-          <input type="file"
-          className='form-control'
+        <label className="file-label">Game Photo</label>
+        <input
+          type="file"
           required
-          accept='image/*'
-          onChange={(e) => setProductPhoto(e.target.files[0])} /> <br />
+          accept="image/*"
+          onChange={(e) => setProductPhoto(e.target.files[0])}
+        />
 
-          <input type="submit"
-          value="Add Game"
-          className='btn btn-outline-primary' />
-        </form>
-      </div>
+        <button type="submit" className="submit-btn">Add Game</button>
+      </form>
     </div>
-  )
-}
+  );
+};
 
 export default Addproducts;

@@ -1,0 +1,99 @@
+/* Background for the whole page */
+.signup-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Orbitron', sans-serif;
+  padding: 40px 20px;
+}
+
+/* Header */
+.signup-header {
+  margin-bottom: 30px;
+}
+
+/* Neon Title */
+.neon-title {
+  color: #00ffff;
+  font-size: 3rem;
+  text-shadow:
+    0 0 5px #00ffff,
+    0 0 10px #00ffff,
+    0 0 20px #ff00ff,
+    0 0 40px #00ffff;
+  text-align: center;
+}
+
+/* Form Container */
+.signup-form-container {
+  background: rgba(0,0,0,0.6);
+  padding: 40px 50px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px #00ffff, 0 0 40px #ff00ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Inputs */
+.signup-form-container input {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px 15px;
+  margin: 12px 0;
+  border: 2px solid #00ffff;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  transition: 0.3s;
+}
+
+.signup-form-container input:focus {
+  border-color: #ff00ff;
+  box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff;
+}
+
+/* Neon Button */
+.neon-button {
+  margin-top: 20px;
+  padding: 12px 25px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #00ffff;
+  background: none;
+  border: 2px solid #00ffff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  text-transform: uppercase;
+  text-shadow: 0 0 5px #00ffff, 0 0 10px #ff00ff;
+}
+
+.neon-button:hover {
+  color: #ff00ff;
+  border-color: #ff00ff;
+  box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff, 0 0 30px #ff00ff;
+}
+
+/* Messages */
+.loading-text { color: #00ffff; text-shadow: 0 0 5px #00ffff; }
+.success-text { color: #0f0; text-shadow: 0 0 5px #0f0; }
+.error-text { color: #ff0000; text-shadow: 0 0 5px #ff0000; }
+
+/* Signin link */
+.signin-link {
+  margin-top: 20px;
+  text-align: center;
+}
+.signin-link a {
+  color: #ff00ff;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.signin-link a:hover {
+  color: #00ffff;
+  text-shadow: 0 0 5px #00ffff;
+}

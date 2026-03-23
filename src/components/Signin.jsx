@@ -1,17 +1,17 @@
-import axios from 'axios';
-import React, { useState } from 'react';
+import axios from "axios";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./signin.css";
-import { Link, useNavigate } from 'react-router-dom';
+
+// Import your background image
+import bgImage from "../assets/images/GAMEPAD.webp"; // exact filename
 
 const Signin = () => {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [loading, setLoading] = useState("");
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
-
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -31,81 +31,70 @@ const Signin = () => {
       setLoading("");
 
       if (response.data.user) {
-
-        // ✅ store user
         localStorage.setItem("user", JSON.stringify(response.data.user));
-
         setSuccess("Login successful!");
-
-        setTimeout(() => {
-          navigate("/");
-        }, 1500);
-
+        setTimeout(() => navigate("/"), 1500);
       } else {
         setError("Login Failed. Try again.");
       }
-
     } catch (err) {
       setLoading("");
-
-      if (err.response) {
-        setError(err.response.data.message || "Invalid credentials");
-      } else {
-        setError("Network error. Check your connection.");
-      }
+      if (err.response) setError(err.response.data.message || "Invalid credentials");
+      else setError("Network error. Check your connection.");
     }
   };
 
   return (
-    <div className="container">
-      <div className="heading">Sign In</div>
+    <div
+      className="signin-background"
+      style={{ backgroundImage: `url(${bgImage})` }}
+    >
+      <div className="form-container">
+        <h2 className="text-neon">Sign In</h2>
 
-      {/* Messages */}
-      {loading && <p style={{ color: "blue" }}>{loading}</p>}
-      {success && <p style={{ color: "green" }}>{success}</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
+        {loading && <p className="loading-msg">{loading}</p>}
+        {success && <p className="success-msg">{success}</p>}
+        {error && <p className="error-msg">{error}</p>}
 
-      <form className="form" onSubmit={handleSubmit}>
+        <form className="form" onSubmit={handleSubmit}>
+          <input
+            required
+            className="input"
+            type="email"
+            placeholder="E-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
-        <input
-          required
-          className="input"
-          type="email"
-          placeholder="E-mail"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+          <input
+            required
+            className="input"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-        <input
-          required
-          className="input"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <span className="forgot-password">
+            <a href="#">Forgot Password?</a>
+          </span>
 
-        <span className="forgot-password">
-          <a href="#">Forgot Password?</a>
-        </span>
+          <input className="login-button" type="submit" value="Sign In" />
+        </form>
 
-        <input className="login-button" type="submit" value="Sign In" />
-
-      </form>
-
-      <div className="social-account-container">
-        <span className="title">Or Sign in with</span>
-
-        <div className="social-accounts">
-          <button type="button" className="social-button google"></button>
-          <button type="button" className="social-button apple"></button>
-          <button type="button" className="social-button twitter"></button>
+        <div className="social-account-container">
+          <span className="title">Or Sign in with</span>
+          <div className="social-accounts">
+            <button type="button" className="social-button google"></button>
+            <button type="button" className="social-button apple"></button>
+            <button type="button" className="social-button twitter"></button>
+          </div>
         </div>
-      </div>
 
-      <span className="agreement">
-        <Link to="/signup">Create an account</Link>
-      </span>
+        <span className="agreement">
+          <Link to="/signup">Create an account</Link>
+        </span>
+      </div>
     </div>
   );
 };
