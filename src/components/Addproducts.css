@@ -1,96 +1,130 @@
-/* Page background */
+/* Page background with Mbappé neon image */
 .addproduct-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #0d0d0d;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   padding: 20px;
-  font-family: 'Arial', sans-serif;
+  position: relative;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Overlay to make form readable */
+.addproduct-container::before {
+  content: "";
+  position: absolute;
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.65); /* subtle dark layer for contrast */
+  z-index: 0;
 }
 
 /* Form styling */
 .addproduct-form {
-  background-color: #111;
-  padding: 40px 30px;
-  border-radius: 12px;
-  box-shadow: 0 0 20px #0ff, 0 0 40px #0ff, 0 0 60px #0ff;
+  position: relative; /* ensure form is above overlay */
+  z-index: 1;
+  background-color: #121212;
+  padding: 45px 35px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.2),
+              0 0 30px rgba(0, 255, 255, 0.15);
   width: 100%;
-  max-width: 450px;
+  max-width: 480px;
   display: flex;
   flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.addproduct-form:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.25),
+              0 0 50px rgba(0, 255, 255, 0.2);
+}
+
+/* Form title */
 .form-title {
   text-align: center;
   font-size: 2rem;
   color: #0ff;
-  text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
-  margin-bottom: 25px;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.4);
 }
 
+/* Success & error messages */
 .success-text {
   color: #0f0;
   text-align: center;
   margin-bottom: 15px;
-  text-shadow: 0 0 5px #0f0;
+  font-weight: 600;
+  text-shadow: 0 0 4px #0f0;
 }
 
 .error-text {
-  color: #ff004f;
+  color: #ff4f6e;
   text-align: center;
   margin-bottom: 15px;
-  text-shadow: 0 0 5px #ff004f;
+  font-weight: 600;
+  text-shadow: 0 0 4px #ff4f6e;
 }
 
-/* Input styling */
+/* Input fields */
 .addproduct-form input[type="text"],
 .addproduct-form input[type="number"],
 .addproduct-form input[type="file"] {
-  padding: 12px 15px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  border: 1px solid #0ff;
-  background: #111;
+  padding: 14px 18px;
+  margin-bottom: 18px;
+  border-radius: 10px;
+  border: 1px solid #0ff55a33;
+  background: #1a1a1a;
   color: #0ff;
   font-size: 1rem;
   outline: none;
-  box-shadow: 0 0 5px #0ff inset;
+  box-shadow: inset 0 0 5px rgba(0, 255, 255, 0.1);
   transition: all 0.3s ease;
 }
 
 .addproduct-form input::placeholder {
-  color: #0ff88c;
+  color: #0ff99caa;
 }
 
 .addproduct-form input:focus {
   border-color: #0ff;
-  box-shadow: 0 0 10px #0ff, 0 0 20px #0ff inset;
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.3);
 }
 
 /* File label */
 .file-label {
   color: #0ff;
-  margin-bottom: 5px;
-  font-weight: bold;
+  margin-bottom: 6px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
 /* Submit button */
 .submit-btn {
-  padding: 12px;
+  padding: 14px;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   font-weight: bold;
   color: #000;
-  font-size: 1rem;
+  font-size: 1.05rem;
   cursor: pointer;
-  background: linear-gradient(45deg, #0ff, #0ff88c);
-  box-shadow: 0 0 10px #0ff, 0 0 20px #0ff inset;
+  background: linear-gradient(135deg, #0ff77a, #0ff);
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.2),
+              0 0 16px rgba(0, 255, 255, 0.15) inset;
   transition: all 0.3s ease;
 }
 
 .submit-btn:hover {
-  background: linear-gradient(45deg, #0ff88c, #0ff);
-  box-shadow: 0 0 20px #0ff, 0 0 40px #0ff inset;
+  background: linear-gradient(135deg, #0ff, #0ff77a);
+  box-shadow: 0 0 18px rgba(0, 255, 255, 0.3),
+              0 0 30px rgba(0, 255, 255, 0.2) inset;
   transform: scale(1.05);
 }

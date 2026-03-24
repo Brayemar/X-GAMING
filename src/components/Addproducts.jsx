@@ -3,13 +3,13 @@ import Loader from './Loader';
 import axios from 'axios';
 import './Addproducts.css';
 import Footer from './Footer';
+import bgImage from "../assets/images/Mbappe.jpg"; // Mbappé image
 
 const Addproducts = () => {
   const [product_name, setProductName] = useState("");
   const [product_description, setProductDescription] = useState("");
   const [product_cost, setProductCost] = useState("");
   const [product_photo, setProductPhoto] = useState("");
-
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
@@ -32,13 +32,11 @@ const Addproducts = () => {
 
       setLoading(false);
       setSuccess(response.data.message);
-
       setProductName("");
       setProductDescription("");
       setProductCost("");
       setProductPhoto("");
       e.target.reset();
-
       setTimeout(() => setSuccess(""), 5000);
 
     } catch (err) {
@@ -48,10 +46,12 @@ const Addproducts = () => {
   };
 
   return (
-    <div className="addproduct-container">
+    <div 
+      className="addproduct-container"
+      style={{ backgroundImage: `url(${bgImage})` }} // <-- added here
+    >
       <form className="addproduct-form" onSubmit={handleSubmit}>
         <h2 className="form-title">Add a Game</h2>
-
         {loading && <Loader />}
         {success && <p className="success-text">{success}</p>}
         {error && <p className="error-text">{error}</p>}
